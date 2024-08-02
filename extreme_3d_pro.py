@@ -95,14 +95,11 @@ class Extreme3DPro:
     @param pid: the product id of the joystick
     @param serial: the serial number of the joystick
     @param path: the path of the joystick
-    @param auto_update: whether the joystick's state should be updated automatically when accessing properties. 
-           note, when set to True, calling two properties may get asynchronous two properties (one from the old state and one from the new state).
-
+    
     @note: there is NO event buffer in the `Extreme3DPro` class. It only reflect what state the joystick is in at the moment of calling the property.
     """
 
-    def __init__(self, vid=_VID, pid=_PID, serial=None, path=None,
-                 auto_update: bool = True) -> None:
+    def __init__(self, vid=_VID, pid=_PID, serial=None, path=None) -> None:
         self.device = Extreme3DProDrive(
             vid=vid, pid=pid, serial=serial, path=path)
 
