@@ -95,13 +95,19 @@ class Extreme3DPro:
     @param pid: the product id of the joystick
     @param serial: the serial number of the joystick
     @param path: the path of the joystick
-    
+    @param nonblocking: whether the joystick's update is blocking, i.e. waits until new data arrives
+
     @note: there is NO event buffer in the `Extreme3DPro` class. It only reflect what state the joystick is in at the moment of calling the property.
     """
 
-    def __init__(self, vid=_VID, pid=_PID, serial=None, path=None) -> None:
+    def __init__(self, vid=_VID, pid=_PID, serial=None, path=None, nonblocking: bool = True) -> None:
         self.device = Extreme3DProDrive(
-            vid=vid, pid=pid, serial=serial, path=path)
+            vid=vid,
+            pid=pid,
+            serial=serial,
+            path=path,
+            nonblocking=nonblocking
+        )
 
     hat_pos_map: Dict[int, Tuple[int, int]] = {
         0: (0, 1),
