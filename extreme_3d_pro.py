@@ -101,7 +101,7 @@ class Extreme3DPro:
     """
 
     def __init__(self, vid=_VID, pid=_PID, serial=None, path=None, nonblocking: bool = True) -> None:
-        self.device = Extreme3DProDrive(
+        self._device = Extreme3DProDrive(
             vid=vid,
             pid=pid,
             serial=serial,
@@ -127,7 +127,7 @@ class Extreme3DPro:
 
         @return: whether the update was successful or not
         """
-        return self.device.update()
+        return self._device.update()
 
     @property
     def x(self):
@@ -136,7 +136,7 @@ class Extreme3DPro:
 
         @return: the joystick's x position. normalized to [-1, 1]
         """
-        return self.device.x * _STICK_FACTOR - 1
+        return self._device.x * _STICK_FACTOR - 1
 
     @property
     def y(self):
@@ -145,7 +145,7 @@ class Extreme3DPro:
 
         @return: the joystick's y position. normalized to [-1, 1]
         """
-        return self.device.y * _STICK_FACTOR - 1
+        return self._device.y * _STICK_FACTOR - 1
 
     @property
     def hat(self):
@@ -155,7 +155,7 @@ class Extreme3DPro:
         @return: a tuple containing the x and y position of the hat. each value is either -1, 0, or 1.
                 e.g. southwest: (-1, -1), north: (0, 1).
         """
-        return Extreme3DPro.hat_pos_map[self.device.hat]
+        return Extreme3DPro.hat_pos_map[self._device.hat]
 
     @property
     def buttons(self) -> List[int]:
@@ -166,7 +166,7 @@ class Extreme3DPro:
         """
         l: List[int] = []
         position: int = 0
-        buttons = self.device.buttons
+        buttons = self._device.buttons
         while buttons:
             if buttons & 1:
                 l.append(position + 1)
@@ -181,7 +181,7 @@ class Extreme3DPro:
 
         @return: a tuple containing the joystick's x and y position. each value is normalized to [-1, 1]
         """
-        return (self.device.x * _STICK_FACTOR - 1, self.device.y * _STICK_FACTOR - 1)
+        return (self._device.x * _STICK_FACTOR - 1, self._device.y * _STICK_FACTOR - 1)
 
     @property
     def twist(self):
@@ -190,7 +190,7 @@ class Extreme3DPro:
 
         @return: the joystick's twist position. normalized to [-1, 1]
         """
-        return self.device.twist * _TWIST_FACTOR - 1
+        return self._device.twist * _TWIST_FACTOR - 1
 
     @property
     def slider(self):
@@ -199,7 +199,7 @@ class Extreme3DPro:
 
         @return: the joystick's slider position. normalized to [-1, 1]
         """
-        return self.device.slider * _SLIDER_FACTOR - 1
+        return self._device.slider * _SLIDER_FACTOR - 1
 
     def report_summary(self) -> str:
         return f"stick: ({self.x:.4f}, {self.y:.4f}), hat: {self.hat}, buttons: {self.buttons}, twist: {self.twist:.4f}, slider: {self.slider:.4f}"
