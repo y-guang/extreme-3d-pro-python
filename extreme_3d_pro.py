@@ -109,7 +109,7 @@ class Extreme3DPro:
             nonblocking=nonblocking
         )
 
-    hat_pos_map: Dict[int, Tuple[int, int]] = {
+    _hat_pos_map: Dict[int, Tuple[int, int]] = {
         0: (0, 1),
         1: (1, 1),
         2: (1, 0),
@@ -155,7 +155,7 @@ class Extreme3DPro:
         @return: a tuple containing the x and y position of the hat. each value is either -1, 0, or 1.
                 e.g. southwest: (-1, -1), north: (0, 1).
         """
-        return Extreme3DPro.hat_pos_map[self._device.hat]
+        return Extreme3DPro._hat_pos_map[self._device.hat]
 
     @property
     def buttons(self) -> List[int]:
